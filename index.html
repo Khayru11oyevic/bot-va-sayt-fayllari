@@ -1,85 +1,86 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Zone Do'koni</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #222222);
-        }
-    </style>
-</head>
-<body class="p-4 font-sans selection:bg-blue-500 selection:text-white">
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Rocket, Star, Shield, Gift, ChevronRight, Home, List, MessageCircle, User } from 'lucide-react';
 
-    <div class="text-center mb-6">
-        <h1 class="text-2xl font-bold text-blue-500">💎 Premium Zone</h1>
-        <p class="text-sm opacity-70 mt-1">Telegram Premium va Stars xizmatlari</p>
+const PremiumZone = () => {
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
+      {/* Background Gradients */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[20%] -left-[10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] -right-[10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]" />
+      </div>
+
+      <main className="relative p-6 pb-24">
+        {/* Header */}
+        <header className="mb-8">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+          >
+            Premium Zone 👑
+          </motion.h1>
+          <p className="text-gray-400 text-sm mt-1">Fast • Secure • Instant</p>
+        </header>
+
+        {/* Product Cards */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <ProductCard title="Premium 1m" price="42 000 UZS" icon={<Rocket className="text-yellow-400" />} badge="Top Sale" />
+          <ProductCard title="Stars" price="27 000 UZS" icon={<Star className="text-yellow-400" />} badge="Popular" />
+        </div>
+
+        {/* Categories */}
+        <section className="space-y-3">
+          <CategoryItem icon={<Shield />} label="Account Login" />
+          <CategoryItem icon={<Gift />} label="Gift Link" />
+          <CategoryItem icon={<Star />} label="Telegram Stars" />
+        </section>
+      </main>
+
+      {/* Bottom Nav */}
+      <nav className="fixed bottom-0 w-full bg-[#121826]/80 backdrop-blur-xl border-t border-white/10 p-4 flex justify-around">
+        <NavItem icon={<Home />} label="Home" />
+        <NavItem icon={<List />} label="Orders" />
+        <NavItem icon={<MessageCircle />} label="Support" />
+        <NavItem icon={<User />} label="Profile" />
+      </nav>
     </div>
+  );
+};
 
-    <div class="space-y-4">
-        
-        <div class="p-4 rounded-xl border border-gray-200 shadow-sm bg-opacity-10 bg-blue-500 flex justify-between items-center">
-            <div>
-                <h3 class="font-bold text-lg text-blue-600">Telegram Premium (3 Oylik)</h3>
-                <p class="text-sm font-semibold mt-1 text-green-600">120,000 so'm</p>
-            </div>
-            <button onclick="buyProduct('Telegram Premium (3 oylik)', '120,000')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Sotib olish
-            </button>
-        </div>
+const ProductCard = ({ title, price, icon, badge }) => (
+  <motion.div 
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.97 }}
+    className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-[24px] shadow-2xl relative overflow-hidden group"
+  >
+    <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+    <span className="absolute top-2 right-2 text-[10px] bg-blue-600 px-2 py-0.5 rounded-full">{badge}</span>
+    {icon}
+    <h3 className="font-semibold mt-2">{title}</h3>
+    <p className="text-blue-400 text-sm font-bold">{price}</p>
+  </motion.div>
+);
 
-        <div class="p-4 rounded-xl border border-gray-200 shadow-sm bg-opacity-10 bg-blue-500 flex justify-between items-center">
-            <div>
-                <h3 class="font-bold text-lg text-blue-600">Telegram Premium (6 Oylik)</h3>
-                <p class="text-sm font-semibold mt-1 text-green-600">200,000 so'm</p>
-            </div>
-            <button onclick="buyProduct('Telegram Premium (6 oylik)', '200,000')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Sotib olish
-            </button>
-        </div>
-
-        <div class="p-4 rounded-xl border border-gray-200 shadow-sm bg-opacity-10 bg-yellow-500 flex justify-between items-center">
-            <div>
-                <h3 class="font-bold text-lg text-yellow-600">⭐ 100 Telegram Stars</h3>
-                <p class="text-sm font-semibold mt-1 text-green-600">28,000 so'm</p>
-            </div>
-            <button onclick="buyProduct('100 Telegram Stars', '28,000')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Sotib olish
-            </button>
-        </div>
-
-        <div class="p-4 rounded-xl border border-gray-200 shadow-sm bg-opacity-10 bg-yellow-500 flex justify-between items-center">
-            <div>
-                <h3 class="font-bold text-lg text-yellow-600">⭐ 500 Telegram Stars</h3>
-                <p class="text-sm font-semibold mt-1 text-green-600">125,000 so'm</p>
-            </div>
-            <button onclick="buyProduct('500 Telegram Stars', '125,000')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Sotib olish
-            </button>
-        </div>
-
+const CategoryItem = ({ icon, label }) => (
+  <motion.div 
+    whileHover={{ x: 5 }}
+    className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-[20px] flex items-center justify-between cursor-pointer group"
+  >
+    <div className="flex items-center gap-3">
+      {icon}
+      <span>{label}</span>
     </div>
+    <ChevronRight className="text-gray-500 group-hover:text-blue-400" />
+  </motion.div>
+);
 
-    <script>
-        // Telegram WebApp obyektini kengaytirish
-        const tg = window.Telegram.WebApp;
-        tg.expand(); // Ilovani toliq ekranda ochish
+const NavItem = ({ icon, label }) => (
+  <div className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-400 transition-colors">
+    {icon}
+    <span className="text-[10px]">{label}</span>
+  </div>
+);
 
-        function buyProduct(name, price) {
-            // Tanlangan mahsulot haqida ma'lumot tayyorlaymiz
-            const data = {
-                product_name: name,
-                product_price: price
-            };
-            
-            // Ma'lumotni Telegram botga yuboramiz va ilovani yopamiz
-            tg.sendData(JSON.stringify(data));
-            tg.close();
-        }
-    </script>
-</body>
-</html>
+export default PremiumZone;
